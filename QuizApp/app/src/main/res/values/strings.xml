@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Quiz App</string>
+    <string name="question_bank">
+        { question_answer :
+            [
+                { question : \"01) The capital of Libya is Benghazi\", answer : \"false\" },
+                { question : \"02) Albert Einstein was awarded the Nobel Prize in Physics\", answer : \"true\" },
+                { question : \"03) Baby koalas are called joeys\", answer : \"true\" },
+                { question : \"04) Gone with the Wind takes place in Savannah, Georgia\", answer : \"false\" },
+                { question : \"05) Brazil is the only country in the Americas whose official language is Portuguese\", answer : \"true\" },
+                { question : \"06) The first name of Kramer in Seinfeld is Cosmo\", answer : \"false\" },
+                { question : \"07) The American Civil War ended in 1776\", answer : \"false\" },
+                { question : \"08) A right triangle can never be equilateral\", answer : \"true\" },
+                { question : \"09) The Bill of Rights contains 10 amendments to the Constitution\", answer : \"true\" },
+                { question : \"10) Snow White’s seven dwarfs all worked as lumberjacks\", answer : \"false\" },
+                { question : \"11) There are seven red stripes in the United States flag\", answer : \"true\" },
+                { question : \"12) Thomas Jefferson was the second president of the United States\", answer : \"false\" },
+                { question : \"13) No bird can fly backwards\", answer : \"false\" },
+                { question : \"14) The name Sylvia Plath was a pseudonym\", answer : \"false\" },
+                { question : \"15) The Ford Edsel was named after Henry Ford’s father\", answer : \"false\" },
+            ]
+        }
+    </string>
+</resources>
