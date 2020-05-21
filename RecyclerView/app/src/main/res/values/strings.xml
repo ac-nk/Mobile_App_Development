@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Recycler View</string>
+    <string name="my_songs">
+        [
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 }
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 },
+            { title : \"temporary nothing"\, artist : \"mxmtoon", year : 2020 }
+        ]
+    </string>
+</resources>
