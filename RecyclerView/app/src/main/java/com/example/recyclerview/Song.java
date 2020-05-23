@@ -1,8 +1,8 @@
 package com.example.recyclerview;
 
 public class Song {
-    private String title, artist;
-    private int year;
+    public String title, artist;
+    public int year;
 
     public Song() {
     }

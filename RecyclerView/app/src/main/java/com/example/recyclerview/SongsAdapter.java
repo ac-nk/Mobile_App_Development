@@ -37,10 +37,17 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        Song song = mSongsList.get(position);
-        holder.mTextViewTitle.setText(song.getTitle());
-        holder.mTextViewArtist.setText(song.getArtist());
-        holder.mTextViewYear.setText(Integer.toString(song.getYear()));
+//        if(position < mSongsList.size()) {
+            Song song = mSongsList.get(position);
+//            if(song != null){
+//                if(song.title != null)
+                    holder.mTextViewTitle.setText(song.title);
+//                if(song.artist != null)
+                    holder.mTextViewArtist.setText(song.artist);
+//                if(Integer.toString(song.year) != null)
+                    holder.mTextViewYear.setText(Integer.toString(song.year));
+//            }
+//        }
     }
     @Override
     public int getItemCount() {
