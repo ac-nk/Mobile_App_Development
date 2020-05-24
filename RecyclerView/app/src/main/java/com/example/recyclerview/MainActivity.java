@@ -22,9 +22,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SongsAdapter.AdapterCallback, RecycleFragment.RecycleFragmentListener, VoteFragment.VoteFragmentListener {
 
-    private List<Song> mSongsList;
-    private RecyclerView mRecyclerView;
-    private SongsAdapter mSongsAdapter;
+//    private List<Song> mSongsList;
+//    private RecyclerView mRecyclerView;
+//    private SongsAdapter mSongsAdapter;
     private Gson mGson;
     private SongVotes mSongVotes;
 
@@ -95,9 +95,10 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
         // update the master reference
         mSongVotes.setSongVotes(num, mRecyclePosition);
 
-
         // update shared preferences
         saveToSharedPreferences();
+        Log.i(TAG, mGson.toJson(mSongVotes));
+       // mMyViewPagerAdapter.updateSongAdapter(mSongVotes);
 
         // update master fragment
         mMyViewPagerAdapter.updateRecycleFragment(mSongVotes);
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
         // retain references to the fragments in the adapter
         private RecycleFragment mRecycleFragment = null;
         private VoteFragment mVoteFragment = null;
+        private SongsAdapter mSongsAdapter;
 
         private int currentVote;
 
@@ -131,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
             super(ma);
         }
 
+//        public void updateSongAdapter( SongVotes svs) {
+//           // mSongsAdapter.updateSongVotes(svs);
+//            mRecycleFragment.updateDisplay();
+//        }
         public void updateVoteFragment(SongVote sv) {
             if(mVoteFragment != null) {
                 mVoteFragment.updateDisplay(sv.getVoteNum());

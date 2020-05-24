@@ -73,17 +73,17 @@ public class RecycleFragment extends Fragment {
         Gson gson = new GsonBuilder().create();
         String serializedObject = getArguments().getString("SERIALIZED_OBJECT");
         // create a local copy of the orders
-        SongVotes r = gson.fromJson(serializedObject, SongVotes.class);
+        mSongVotes = gson.fromJson(serializedObject, SongVotes.class);
 
         // update data set and display
-        updateDataSet(r);
+        updateDataSet(mSongVotes);
         //updateDisplay();
 
         Song[] mySongs = gson.fromJson( getString(R.string.my_songs), Song[].class );
         mSongsList = new ArrayList<>(Arrays.asList(mySongs));
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        mSongsAdapter = new SongsAdapter(mSongsList, getActivity());
+        mSongsAdapter = new SongsAdapter(mSongsList, mSongVotes, getActivity());
         mSongsAdapter.notifyDataSetChanged();
 
         RecyclerView.LayoutManager rvlManager = new LinearLayoutManager(getActivity());
@@ -121,6 +121,7 @@ public class RecycleFragment extends Fragment {
 
     }
     public void updateDisplay(){
+        mSongsAdapter.updateSongVotes(mSongVotes);
         mSongsAdapter.notifyDataSetChanged();
     }
 

@@ -83,6 +83,9 @@ public class VoteFragment extends Fragment {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String text = mTextViewVoteNum.getText().toString();
+                mVoteCount = Integer.parseInt(text.substring(17));
+                Log.i(TAG, "vote num in onClick: " + mVoteCount);
                 mCallback.onVoteFragmentAction(mVoteCount);
             }
         });

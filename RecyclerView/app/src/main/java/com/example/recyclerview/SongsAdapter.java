@@ -16,9 +16,11 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
 
     private List<Song> mSongsList;
     private AdapterCallback mAdapterCallback;
+    private SongVotes mSongVotes;
 
-    public SongsAdapter(List<Song> songsList, Context context) {
+    public SongsAdapter(List<Song> songsList, SongVotes svs, Context context) {
         this.mSongsList = songsList;
+        this.mSongVotes = svs;
         try {
             this.mAdapterCallback = ((AdapterCallback) context);
         } catch (ClassCastException e) {
@@ -27,7 +29,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView mTextViewTitle, mTextViewArtist, mTextViewYear;
+        public TextView mTextViewTitle, mTextViewArtist, mTextViewYear, mTextViewVote;
 
         public MyViewHolder(View view) {
             super(view);
@@ -35,6 +37,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
             mTextViewTitle = view.findViewById(R.id.title);
             mTextViewArtist = view.findViewById(R.id.artist);
             mTextViewYear = view.findViewById(R.id.year);
+            mTextViewVote = view.findViewById(R.id.vote);
         }
 
         @Override
@@ -54,7 +57,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
 //        if(position < mSongsList.size()) {
+            SongVote tempSongVote = mSongVotes.getSong(position);
             Song song = mSongsList.get(position);
+
+            holder.mTextViewVote.setText("VOTES: " + tempSongVote.getVoteNum());
 //            if(song != null){
 //                if(song.title != null)
                     holder.mTextViewTitle.setText(song.title);
@@ -68,6 +74,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         return mSongsList.size();
+    }
+    public void updateSongVotes (SongVotes svs) {
+        mSongVotes = svs;
     }
     public static interface AdapterCallback {
         void onAdapterCallback(int pos);
