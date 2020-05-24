@@ -2,18 +2,18 @@
     <string name="app_name">Recycler View</string>
     <string name="my_songs">
         [
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 },
-            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2020 }
+            { title : \"Okinawa\", artist : \"92914\", year : 2018 },
+            { title : \"Crush Culture\", artist : \"Conan Gray\", year : 2018 },
+            { title : \"temporary nothing\", artist : \"mxmtoon\", year : 2018 },
+            { title : \"Water Fountain\", artist : \"Alec Benjamin\", year : 2018 },
+            { title : \"Times We Had\", artist : \"Barlito\", year : 2020 },
+            { title : \"Acid Dreams\", artist : \"MAX Felly\", year : 2019 },
+            { title : \"New Girl\", artist : \"FINNEAS\", year : 2016 },
+            { title : \"Dont Stop Me Now\", artist : \"Queen\", year : 1981 },
+            { title : \"Angels and Demons\", artist : \"jxdn\", year : 2020 },
+            { title : \"Lo Que Siento\", artist : \"Cuco\", year : 2017 },
+            { title : \"Barney Theme Song\", artist : \"Barney\", year : 2000 },
+            { title : \"Just A Girl\", artist : \"No Doubt\", year : 1995 }
         ]
     </string>
 </resources>

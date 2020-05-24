@@ -60,7 +60,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
             SongVote tempSongVote = mSongVotes.getSong(position);
             Song song = mSongsList.get(position);
 
-            holder.mTextViewVote.setText("VOTES: " + tempSongVote.getVoteNum());
+            holder.mTextViewVote.setText("votes: " + tempSongVote.getVoteNum());
 //            if(song != null){
 //                if(song.title != null)
                     holder.mTextViewTitle.setText(song.title);
