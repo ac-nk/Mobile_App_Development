@@ -2,39 +2,27 @@ package com.example.recyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements SongsAdapter.AdapterCallback, RecycleFragment.RecycleFragmentListener, VoteFragment.VoteFragmentListener {
 
-//    private List<Song> mSongsList;
-//    private RecyclerView mRecyclerView;
-//    private SongsAdapter mSongsAdapter;
-    private Gson mGson;
-    private SongVotes mSongVotes;
+    private static final String KEY = "SONG_VOTE";
+    private static final String TAG = "MAIN_ACTIVITY";
 
     ViewPager2 mViewPager;
     MyViewPagerAdapter mMyViewPagerAdapter;
 
-    private int mVoteNum;
+    private Gson mGson;
+    private SongVotes mSongVotes;
     private int mRecyclePosition;
-    private static final String KEY = "SONG_VOTE";
-    private static final String TAG = "MAIN_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
         // pull data from shared preferences
         SharedPreferences mSettings = this.getSharedPreferences("Settings", Context.MODE_PRIVATE);
         String storedDataString = mSettings.getString(KEY, "");
-        Log.i(TAG, "dataString: "+storedDataString );
 
         mGson = new GsonBuilder().create();
 
@@ -57,59 +44,47 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
             mSongVotes = mGson.fromJson(storedDataString, SongVotes.class);
         }
 
-        Log.i(TAG, mGson.toJson(mSongVotes));
-
         mViewPager = findViewById(R.id.container);          // assign the instance of ViewPager2
         mMyViewPagerAdapter = new MyViewPagerAdapter(this);
         mViewPager.setAdapter(mMyViewPagerAdapter);         // bind the adapter to the viewpager2
         mViewPager.setUserInputEnabled(false);              // disable swiping
 
-//        Gson gson = new GsonBuilder().create();
-//        Song[] mySongs = gson.fromJson( getString(R.string.my_songs), Song[].class );
-//        mSongsList = new ArrayList<>(Arrays.asList(mySongs));
-//
-//        mRecyclerView = findViewById(R.id.recycler_view);
-//        mSongsAdapter = new SongsAdapter(mSongsList, this);
-//        mSongsAdapter.notifyDataSetChanged();
-//
-//        RecyclerView.LayoutManager rvlManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(rvlManager);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//
-//        mRecyclerView.setAdapter(mSongsAdapter);
     }
     @Override
     public void onAdapterCallback(int pos){
-        mRecyclePosition = pos;
-        Log.i(TAG, "" +pos);
-        Log.i(TAG, "" +mSongVotes.getSong(mRecyclePosition).getPosition());
 
+        // gets location of song that was clicked
+        mRecyclePosition = pos;
+
+        // display vote count in vote fragment
         mMyViewPagerAdapter.updateVoteFragment(mSongVotes.getSong(mRecyclePosition));
+
         // switch fragments
         mViewPager.setCurrentItem(1, false);
     }
+
+    // called by vote fragment
     @Override
     public void onVoteFragmentAction(int num) {
-        //mVoteNum = num;
 
-        // update the master reference
+        // update the master reference with vote count and position/song
         mSongVotes.setSongVotes(num, mRecyclePosition);
 
         // update shared preferences
         saveToSharedPreferences();
-        Log.i(TAG, mGson.toJson(mSongVotes));
-       // mMyViewPagerAdapter.updateSongAdapter(mSongVotes);
 
-        // update master fragment
+        // update recycle fragment
         mMyViewPagerAdapter.updateRecycleFragment(mSongVotes);
 
         // switch pages
         mViewPager.setCurrentItem(0, false);
     }
+
+    // called by recycle fragment
     @Override
     public void onRecycleFragmentData(int i) {
-
     }
+
     /* ------------------------------------------*/
     /*    HELPER FUNCTIONS                       */
 
@@ -125,35 +100,10 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
         // retain references to the fragments in the adapter
         private RecycleFragment mRecycleFragment = null;
         private VoteFragment mVoteFragment = null;
-        private SongsAdapter mSongsAdapter;
-
-        private int currentVote;
 
         public MyViewPagerAdapter(MainActivity ma) {
             super(ma);
         }
-
-//        public void updateSongAdapter( SongVotes svs) {
-//           // mSongsAdapter.updateSongVotes(svs);
-//            mRecycleFragment.updateDisplay();
-//        }
-        public void updateVoteFragment(SongVote sv) {
-            if(mVoteFragment != null) {
-                mVoteFragment.updateDisplay(sv.getVoteNum());
-            }
-        }
-        public void updateRecycleFragment(SongVotes svs) {
-            if(mRecycleFragment != null) {
-                mRecycleFragment.updateDataSet(svs);
-                mRecycleFragment.updateDisplay();
-            }
-            //mRecyclerView.updateDataSet(svs);
-            //mRecyclerView.updateDisplay();
-        }
-//        public void setDetailsString(int n) {
-//            mVoteNum = n;
-//                mVoteFragment.updateDisplay(mVoteNum);
-//        }
 
         @Override
         public Fragment createFragment(int position) {
@@ -179,5 +129,24 @@ public class MainActivity extends AppCompatActivity implements SongsAdapter.Adap
         public int getItemCount() {
             return 2;       // there are only two fragments, the master and the detail
         }
+
+        /* ------------------------------------------*/
+        /*    HELPER FUNCTIONS                       */
+
+        // display vote count on vote fragment
+        public void updateVoteFragment(SongVote sv) {
+            if(mVoteFragment != null) {
+                mVoteFragment.updateDisplay(sv.getVoteNum());
+            }
+        }
+
+        // update vote count on recycle fragment
+        public void updateRecycleFragment(SongVotes svs) {
+            if(mRecycleFragment != null) {
+                mRecycleFragment.updateDataSet(svs);
+                mRecycleFragment.updateDisplay();
+            }
+        }
+        /* ------------------------------------------*/
     }
 }

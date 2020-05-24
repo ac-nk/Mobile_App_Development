@@ -2,7 +2,6 @@ package com.example.recyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,29 +18,33 @@ public class VoteFragment extends Fragment {
     private Button mVoteButton;
     private Button mBackButton;
 
-    private int mVoteCount;
     private static final String ARG_PARAM1 = "VOTE_NUM";
     private static final String TAG = "MAIN_FRAGMENT_VOTE";
+    private int mVoteCount;
 
     private VoteFragmentListener mCallback;
 
     public VoteFragment() {
         // Required empty public constructor
     }
+
     public static VoteFragment newInstance(int num) {
+
+        // contains vote count when fragment created
         VoteFragment fragment = new VoteFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, num);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mVoteCount = getArguments().getInt(ARG_PARAM1);
-            Log.i(TAG, "vote count in onCreate: " + mVoteCount);
         }
     }
 
@@ -61,21 +64,21 @@ public class VoteFragment extends Fragment {
         mBackButton = view.findViewById(R.id.btn_back);
         mVoteButton = view.findViewById(R.id.btn_vote);
 
-        // configure display & animation
+        // display vote count
         updateDisplay(mVoteCount);
-        Log.i(TAG, "vote num: " + mVoteCount);
+        // update master reference with vote number in TextView
         String text = mTextViewVoteNum.getText().toString();
         mVoteCount = Integer.parseInt(text.substring(17));
-        Log.i(TAG, "vote num: " + mVoteCount);
-
 
         mVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // update master reference with vote number in TextView
                 String text = mTextViewVoteNum.getText().toString();
                 mVoteCount = Integer.parseInt(text.substring(17));
-                Log.i(TAG, "vote num in onClick: " + mVoteCount);
+
                 mVoteCount++;
+                // display vote count
                 updateDisplay(mVoteCount);
             }
         });
@@ -83,22 +86,23 @@ public class VoteFragment extends Fragment {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // update master reference with vote number in TextView
                 String text = mTextViewVoteNum.getText().toString();
                 mVoteCount = Integer.parseInt(text.substring(17));
-                Log.i(TAG, "vote num in onClick: " + mVoteCount);
+
+                // makes sure to pass data to MainActivity with vote count of THIS fragment
                 mCallback.onVoteFragmentAction(mVoteCount);
             }
         });
     }
 
-    /* ------------------------------------*/
-    /*   custom helper method              */
-    /*   this is called by MainActivity    */
+    /* ------------------------------------------*/
+    /*    HELPER FUNCTIONS                       */
 
     public void updateDisplay(int num){
         mTextViewVoteNum.setText( "number of votes: " + Integer.toString(num));
     }
-
+    /* ------------------------------------------*/
 
     @Override
     public void onAttach(Context context) {
@@ -117,6 +121,7 @@ public class VoteFragment extends Fragment {
         mCallback = null;
     }
 
+    // fragment interface for communication, vote count is passed as parameter
     public interface VoteFragmentListener {
         void onVoteFragmentAction(int num);
     }

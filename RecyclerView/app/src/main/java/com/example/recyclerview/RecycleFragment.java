@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,11 +29,6 @@ public class RecycleFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
-    private String mParam1;
-    private View mViewRed;
-    private View mViewGreen;
-    private View mViewBlue;
-
     private RecycleFragmentListener mCallback;
 
     public RecycleFragment() {
@@ -44,6 +38,7 @@ public class RecycleFragment extends Fragment {
     public static RecycleFragment newInstance(String serializedObject) {
         RecycleFragment fragment = new RecycleFragment();
 
+        // contains serialized string of song votes
         Bundle args = new Bundle();
         args.putString("SERIALIZED_OBJECT", serializedObject);
         fragment.setArguments(args);
@@ -53,10 +48,6 @@ public class RecycleFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//        }
-
     }
 
     @Override
@@ -70,15 +61,15 @@ public class RecycleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // changes serialized string back to SongVotes object
         Gson gson = new GsonBuilder().create();
         String serializedObject = getArguments().getString("SERIALIZED_OBJECT");
-        // create a local copy of the orders
         mSongVotes = gson.fromJson(serializedObject, SongVotes.class);
 
-        // update data set and display
+        // update data set
         updateDataSet(mSongVotes);
-        //updateDisplay();
 
+        // sets up RecyclerView
         Song[] mySongs = gson.fromJson( getString(R.string.my_songs), Song[].class );
         mSongsList = new ArrayList<>(Arrays.asList(mySongs));
 
@@ -120,11 +111,15 @@ public class RecycleFragment extends Fragment {
         mSongVotes = r;
 
     }
+
+    // updates RecyclerView with new vote counts after user votes in vote fragment
     public void updateDisplay(){
         mSongsAdapter.updateSongVotes(mSongVotes);
         mSongsAdapter.notifyDataSetChanged();
     }
+    /* ------------------------*/
 
+    // fragment interface for communication, not used
     public interface RecycleFragmentListener {
         void onRecycleFragmentData(int i);
     }
