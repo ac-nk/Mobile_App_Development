@@ -31,10 +31,12 @@ public class Friends {
                 break;
         }
     }
+
     public String[] getAllNames(){
         String[] temp = {this.topName, this.middleName, this.bottomName};
         return temp;
     }
+
     public String getName(int pos) {
         switch(pos){
             case 0:
