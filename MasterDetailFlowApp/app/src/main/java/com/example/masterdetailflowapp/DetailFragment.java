@@ -59,7 +59,7 @@ public class DetailFragment extends Fragment {
                 name = mEditText.getText().toString();
                 // clear EditText for next time user inputs a name
                 mEditText.setText("");
-                
+
                 // pass name back to MainActivity
                 mCallback.onDetailFragmentAction(name);
             }
