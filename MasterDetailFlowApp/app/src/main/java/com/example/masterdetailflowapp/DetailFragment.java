@@ -56,8 +56,11 @@ public class DetailFragment extends Fragment {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // pass name back to MainActivity
                 name = mEditText.getText().toString();
+                // clear EditText for next time user inputs a name
+                mEditText.setText("");
+                
+                // pass name back to MainActivity
                 mCallback.onDetailFragmentAction(name);
             }
         });
