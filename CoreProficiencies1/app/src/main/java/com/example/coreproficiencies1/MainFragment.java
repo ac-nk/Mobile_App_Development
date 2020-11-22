@@ -5,17 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     Button mButtonMint;
     Button mButtonCoffee;
     Button mButtonVanilla;
+    TextView mTextMint;
+    TextView mTextVanilla;
+    TextView mTextCoffee;
+    private RequestQueue mRequestQueue;
 
     String vote;
 
@@ -43,10 +58,16 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mButtonMint = view.findViewById(R.id.button_mint);
         mButtonCoffee = view.findViewById(R.id.button_coffee);
         mButtonVanilla = view.findViewById(R.id.button_vanilla);
+        mTextMint = view.findViewById(R.id.mint_result);
+        mTextVanilla = view.findViewById(R.id.vanilla_result);
+        mTextCoffee = view.findViewById(R.id.coffee_result);
+        mRequestQueue = Volley.newRequestQueue(getActivity());
 
         mButtonMint.setOnClickListener(this);
         mButtonCoffee.setOnClickListener(this);
         mButtonVanilla.setOnClickListener(this);
+
+
     }
     @Override
     public void onClick(View v) {
@@ -54,18 +75,49 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         switch(id) {
             case R.id.button_mint:
-                vote = "mint";
+                vote = "0";
                 break;
             case R.id.button_coffee:
-                vote = "coffee";
+                vote = "1";
                 break;
             case R.id.button_vanilla:
-                vote = "vanilla";
+                vote = "2";
                 break;
             default:
                 break;
         }
+//        Toast.makeText(getContext(),vote, Toast.LENGTH_SHORT).show();
+        fetchResponse();
+    }
 
-        Toast.makeText(getContext(),vote, Toast.LENGTH_SHORT).show();
+    private void fetchResponse() {
+        String url = "https://achue-mobileweb.sites.tjhsst.edu/voting";
+        url+= "?vote=" + vote;
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String mint = "Mint votes: " + response.getInt("mint");
+                            String vanilla = "Vanilla votes: " + response.getInt("vanilla");
+                            String coffee = "Coffee votes: " + response.getInt("coffee");
+
+                            mTextMint.setText(mint);
+                            mTextVanilla.setText(vanilla);
+                            mTextCoffee.setText(coffee);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),
+                        error.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        /* Add your Requests to the RequestQueue to execute */
+        mRequestQueue.add(req);
     }
 }

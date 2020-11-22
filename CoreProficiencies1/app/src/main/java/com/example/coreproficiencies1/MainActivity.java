@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 1;
         }
     }
 }

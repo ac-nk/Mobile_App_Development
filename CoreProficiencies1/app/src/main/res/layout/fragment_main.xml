@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0AAFA"
+    android:background="#E39F8D"
     tools:context=".MainFragment">
 
     <TextView
@@ -14,6 +14,7 @@
         android:text="what's the best ice cream flavor?"
         android:textStyle="bold"
         android:textSize="15dp"
+        android:textColor="#705495"
         app:layout_constraintBottom_toBottomOf="@id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -23,13 +24,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".25" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <Button
         android:id="@+id/button_mint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="mint"
+        android:textColor="#705495"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_coffee"
@@ -39,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="coffee"
+        android:textColor="#705495"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +51,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="vanilla"
+        android:textColor="#705495"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_coffee" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:id="@+id/mint_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mint votes: "
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#705495"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
+
+    <TextView
+        android:id="@+id/coffee_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coffee votes: "
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#705495"
+        app:layout_constraintTop_toBottomOf="@id/mint_result"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
+
+    <TextView
+        android:id="@+id/vanilla_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vanilla votes: "
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#705495"
+        app:layout_constraintTop_toBottomOf="@id/coffee_result"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
